@@ -24,7 +24,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <AuthButton />
-        <div>test</div>
         <main>
           {children}
         </main>

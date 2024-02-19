@@ -1,5 +1,5 @@
 /**
- * @file Aberran globe map
+ * @file Aberran globe map component
  * @author Kris Amerman <krisamerman@gmail.com>
  * @version 0.0.1
  * 

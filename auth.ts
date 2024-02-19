@@ -1,6 +1,14 @@
+/**
+ * @file NextAuth configuration
+ * @version 0.0.1
+ */
+
 import NextAuth from "next-auth";
 import type { NextAuthConfig, User } from "next-auth";
-import GitHubProvider from "next-auth/providers/github";
+import PatreonProvider from "next-auth/providers/patreon"
+
+// CONSTANTS
+const REDIRECT_URI = "http://localhost:3000/api/auth/callback/patreon"; // must be registered with Patreon
 
 declare module "next-auth" {
   interface Session {
@@ -13,9 +21,14 @@ declare module "next-auth" {
 export const authConfig = {
   debug: true,
   providers: [
-    GitHubProvider({
-      clientId: process.env.TEST_GITHUB_ID,
-      clientSecret: process.env.TEST_GITHUB_SECRET
+    PatreonProvider({
+      clientId: process.env.PATREON_CLIENT_ID,
+      clientSecret: process.env.PATREON_CLIENT_SECRET,
+      authorization: {
+        params: {
+          redirect_uri: REDIRECT_URI,
+        },
+      },
     })
   ],
   callbacks: {
