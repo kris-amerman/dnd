@@ -1,22 +1,13 @@
-import NextAuth from "next-auth";
-import PatreonProvider from "next-auth/providers/patreon";
-import { authConfig } from "@/auth.config";
+import { handlers } from "@/auth";
+import type { NextRequest } from "next/server";
 
-export const authOptions = {
-  ...authConfig,
-  providers: [
-    PatreonProvider({
-      clientId: process.env.PATREON_CLIENT_ID,
-      clientSecret: process.env.PATREON_CLIENT_SECRET,
-      authorization: {
-        params: {
-          redirect_uri: "http://localhost:3000/content/atlas",
-        },
-      },
-    })
-  ],
+const { GET: AuthGET, POST } = handlers;
+export { POST };
+
+// Showcasing advanced initialization in Route Handlers
+export async function GET(request: NextRequest) {
+  // Do something with request
+  const response = await AuthGET(request);
+  // Do something with response
+  return response;
 }
-
-export const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST }; 
