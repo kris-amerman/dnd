@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
+
+.map-container {
+    height: 100vh;
+}
+
+.sidebar {
+    background-color: rgb(35 55 75 / 90%);
+    color: #fff;
+    padding: 6px 12px;
+    font-family: monospace;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px;
+    border-radius: 4px;
+}
+
+.mapboxgl-popup-close-button {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mapboxgl-popup-content {
+    padding: 10px;
+}
+
+.explore-button {
+    position: absolute;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #4285f4;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    letter-spacing: 0.025em;
+}
+
+.explore-button:hover {
+    opacity: 0.8;
+}
+
+.welcome-text {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 96px;
+    font-family: "IM Fell English SC";
+    text-align: center;
+    width: 100%;
+    opacity: 1;
+    transition: opacity 1s ease-out;
+}
+
+.im-fell english sc-regular {
+    font-family: "IM Fell English SC", serif;
+    font-weight: 400;
+    font-style: normal;
+}
