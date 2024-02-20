@@ -1,5 +1,5 @@
 /**
- * @file Aberran globe map
+ * @file Aberran globe map component
  * @author Kris Amerman <krisamerman@gmail.com>
  * @version 0.0.1
  * 
@@ -191,9 +191,9 @@ export default function Map() {
 
   return (
     <div>
-      <div className="sidebar">
+      {/* <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div>
+      </div> */}
       <div ref={mapContainer} className="map-container" />
     </div>
   );
