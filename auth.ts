@@ -4,19 +4,24 @@
  */
 
 import NextAuth from "next-auth";
-import type { NextAuthConfig, User, Session, Profile } from "next-auth";
+import type { NextAuthConfig, User } from "next-auth";
 import PatreonProvider from "next-auth/providers/patreon"
 
-// CONSTANTS
-const REDIRECT_URI = "http://localhost:3000/api/auth/callback/patreon"; // must be registered with Patreon
-const CAMPAIGN_ID = ""
-
-// INTERFACES
+// INTERFACES (update when we have structure of data)
 interface ProfileData {
   relationships?: {
     pledges: {
-      data?: any; 
-    };
+      data: any; 
+    },
+    campaign: {
+      data: {
+        id: string;
+        type: string;
+      },
+      links: {
+        related: string;
+      }
+    }
   };
 }
 
@@ -29,14 +34,14 @@ declare module "next-auth" {
 }
 
 export const authConfig = {
-  debug: true,
+  // debug: true,
   providers: [
     PatreonProvider({
       clientId: process.env.PATREON_CLIENT_ID,
       clientSecret: process.env.PATREON_CLIENT_SECRET,
       authorization: {
         params: {
-          redirect_uri: REDIRECT_URI,
+          redirect_uri: process.env.REDIRECT_URI_PROVIDER,
         },
       },
     })
@@ -44,17 +49,15 @@ export const authConfig = {
   callbacks: {
     signIn({profile}) {
       if (profile?.data) {
-        const pledges = (profile.data as ProfileData).relationships?.pledges.data
-        return pledges.some((pledge: any) => pledge.id === CAMPAIGN_ID) // TODO: not sure what the structure of data is
-
+        const pledge_data = (profile.data as ProfileData).relationships?.pledges.data
+        return true // for now
+        // return pledge_data.some((pledge: any) => pledge.id === process.env.CAMPAIGN_ID) // TODO: not sure what the structure of data is yet
       }
-      return false // something went wrong
+      return false // if here something went wrong
     },
     authorized(params) {
-      console.log(`is authorized???? ${!!params.auth?.user}`)
       return !!params.auth?.user;
     },
-
   },
 } satisfies NextAuthConfig;
 

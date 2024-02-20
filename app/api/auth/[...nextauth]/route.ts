@@ -6,18 +6,22 @@ export { POST };
 
 // Showcasing advanced initialization in Route Handlers
 export async function GET(request: NextRequest) {
-  
-  // Check if 'error' parameter with value 'AuthorizedCallbackError' exists
-  const urlSearchParams = new URLSearchParams(request.nextUrl.searchParams);
-  if (
-    urlSearchParams.get('error') === 'AuthorizedCallbackError'
-  ) {
-    // Redirect the user to `api/auth/signin`
-    return NextResponse.redirect('http://localhost:3000/api/auth/signin'); // TODO: parameterize base url
+  console.log(`route.ts GET ${request.nextUrl.href}`)
+
+  if (request.nextUrl.pathname === '/api/auth/signin') { 
+    // Redirect the user to `/sign-in` page instead of default next-auth page
+    return NextResponse.redirect('http://localhost:3000/sign-in');
   }
 
-  // Do something with request
+  const urlSearchParams = new URLSearchParams(request.nextUrl.searchParams);
+
+  if (
+    urlSearchParams.get('error') === 'AuthorizedCallbackError' // Access Denied
+  ) {
+    // Redirect the user to `/sign-in` page on unsuccessful sign-in (signIn returned false)
+    return NextResponse.redirect('http://localhost:3000/sign-in');
+  }
+
   const response = await AuthGET(request);
-  // Do something with response
   return response;
 }
